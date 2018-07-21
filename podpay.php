@@ -95,9 +95,7 @@ class plgVmPaymentPodPay extends vmPSPlugin {
 		if (!($method = $this->getVmPluginMethod ($order['details']['BT']->virtuemart_paymentmethod_id))) {
 			return NULL;
 		}
-		$app	= JFactory::getApplication();
 		$session = JFactory::getSession();
-
 		$salt = JUserHelper::genRandomPassword(32);
 		$crypt_virtuemartPID = JUserHelper::getCryptedPassword($order['details']['BT']->virtuemart_order_id, $salt);
 		if ($session->isActive('uniq')) {
@@ -107,7 +105,6 @@ class plgVmPaymentPodPay extends vmPSPlugin {
 
 		$payment_currency = $this->getPaymentCurrency($method,$order['details']['BT']->payment_currency_id);
 		$totalInPaymentCurrency = vmPSPlugin::getAmountInCurrency($order['details']['BT']->order_total,$payment_currency);
-		$currency_code_3 = shopFunctions::getCurrencyByID($payment_currency, 'currency_code_3');
 		$email_currency = $this->getEmailCurrency($method);
 		$dbValues['payment_name'] = $this->renderPluginName ($method) . '<br />';
 		$dbValues['order_number'] = $order['details']['BT']->order_number;
@@ -120,8 +117,6 @@ class plgVmPaymentPodPay extends vmPSPlugin {
 		$dbValues['amount'] = $totalInPaymentCurrency['value'];
 		$dbValues['mobile'] = $order['details']['BT']->phone_2;
 		$this->storePSPluginInternalData ($dbValues);
-		$id = JUserHelper::getCryptedPassword($order['details']['BT']->virtuemart_order_id);
-		$app	= JFactory::getApplication();
 		$Amount = round($totalInPaymentCurrency['value']);
 		$Description = 'خرید محصول از فروشگاه '. $cart->vendor->vendor_store_name;
 		//Todo: send $Description to pod invoice
@@ -197,14 +192,8 @@ class plgVmPaymentPodPay extends vmPSPlugin {
 			$uId = $cryptID.':'.$salt;
 
 			$order_id = $orderInfo->order_number;
-			//$mobile = $orderInfo->mobile; 
 			$payment_id = $orderInfo->virtuemart_paymentmethod_id;
 			$pass_id = $orderInfo->order_pass;
-			$price = round($orderInfo->amount);
-
-
-			$method = $this->getVmPluginMethod ($payment_id);
-
 			if (JUserHelper::verifyPassword($id , $uId)) {
 					try {
 						$fields = "/nzh/biz/getInvoiceList/?size=1&id={$invoice_id}&offset=0";
