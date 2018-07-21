@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="3.6" type="plugin" group="vmpayment" method="upgrade">
+    <name>podpay</name>
+    <author>Mehran Rahbardar</author>
+	<creationDate>Aug 2017</creationDate>
+	<copyright>Copyright 2018 fanap</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>m.rahbardar@fanap.ir</authorEmail>
+	<authorUrl>http://fanap.ir</authorUrl>
+	<version>0.5.33</version>
+    <description>pod pay module</description>
+
+    <files>
+        <filename plugin="podpay">podpay.php</filename>
+        <folder>podpay</folder>
+    </files>
+</extension>
