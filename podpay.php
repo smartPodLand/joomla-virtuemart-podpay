@@ -32,7 +32,7 @@ class plgVmPaymentPodPay extends vmPSPlugin {
 		$this->setConfigParameterable($this->_configTableFieldName, $varsToPush);
 		$params = JComponentHelper::getParams('com_podsso');
 		$this->config = [
-			"service"       => $params->get('platform_address') . "/srv/basic-platform",
+			"service"       => $params->get('platform_address'),
 			"sso"           => $params->get('sso_address') . "/oauth2/",
 			"client_id"     => $params->get('client_id'),
 			"client_secret" => $params->get('client_secret'),
